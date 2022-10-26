@@ -16,6 +16,8 @@ public class ApplicationConfig extends Application {
         corsFilter.getAllowedOrigins().add("*");
         corsFilter.setAllowedMethods("OPTIONS, GET, POST, DELETE, PUT, PATCH");
         singletons.add(corsFilter);
+
+        classes.add(AcademiaApi.class);
     }
 
     @Override

@@ -1,0 +1,9 @@
+package pe.edu.sacooliveros.trismegisto.mongo.api.dao;
+
+import org.json.JSONObject;
+
+public interface AcademiaDAO {
+
+    public JSONObject aulaCrear(JSONObject entrada) throws Exception;
+
+}
