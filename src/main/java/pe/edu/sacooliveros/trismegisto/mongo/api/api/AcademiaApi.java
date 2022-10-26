@@ -1,6 +1,6 @@
 package pe.edu.sacooliveros.trismegisto.mongo.api.api;
 
-import javax.ws.rs.BadRequestException;
+
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -10,11 +10,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import org.json.JSONObject;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-
-import pe.edu.sacooliveros.trismegisto.mongo.api.mongodbdao.MongoDBConexion;
 import pe.edu.sacooliveros.trismegisto.mongo.api.service.AcademiaService;
 
 @Path("academia")

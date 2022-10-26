@@ -1,7 +1,5 @@
 package pe.edu.sacooliveros.trismegisto.mongo.api.mongodbdao;
 
-import javax.swing.text.Document;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,10 +12,10 @@ public class AcademiaMongoDB implements AcademiaDAO {
 
     @Override
     public JSONObject aulaCrear(JSONObject entrada) throws Exception {
-        
         MongoDBConexion conexion = new MongoDBConexion();
         MongoDatabase db = conexion.crearConexion().getDatabase("prueba");
         MongoCollection<org.bson.Document> coleccion = db.getCollection("co_aula_academia");
+        entrada.put("_id", coleccion.countDocuments() + 1);
         org.bson.Document documento = org.bson.Document.parse(entrada.toString());
         coleccion.insertOne(documento);
 
