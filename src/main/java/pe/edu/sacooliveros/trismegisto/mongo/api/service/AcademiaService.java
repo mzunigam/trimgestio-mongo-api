@@ -13,4 +13,8 @@ public class AcademiaService {
         return dao.aulaCrear(entrada);
     }
 
+    public JSONObject aulaListar() throws JSONException, Exception {
+        return dao.aulaListar();
+    }
+
 }

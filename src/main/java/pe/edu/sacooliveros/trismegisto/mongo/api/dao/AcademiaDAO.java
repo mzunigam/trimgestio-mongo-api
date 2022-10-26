@@ -6,4 +6,6 @@ public interface AcademiaDAO {
 
     public JSONObject aulaCrear(JSONObject entrada) throws Exception;
 
+    public JSONObject aulaListar() throws Exception;
+
 }
