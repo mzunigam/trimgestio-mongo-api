@@ -8,4 +8,8 @@ public interface AcademiaDAO {
 
     public JSONObject aulaListar() throws Exception;
 
+    public JSONObject aulaActualizar (JSONObject entrada) throws Exception;
+
+    public JSONObject aulaEliminar (JSONObject entrada) throws Exception;
+
 }

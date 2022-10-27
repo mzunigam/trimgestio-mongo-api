@@ -17,4 +17,12 @@ public class AcademiaService {
         return dao.aulaListar();
     }
 
+    public JSONObject aulaActualizar (JSONObject entrada) throws JSONException, Exception {
+        return dao.aulaActualizar(entrada);
+    }
+
+    public JSONObject aulaEliminar (JSONObject entrada) throws JSONException, Exception {
+        return dao.aulaEliminar(entrada);
+    }
+
 }
