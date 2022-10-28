@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.UpdateOptions;
 
 import pe.edu.sacooliveros.trismegisto.mongo.api.dao.AcademiaDAO;
 
@@ -54,7 +55,8 @@ public class AcademiaMongoDB implements AcademiaDAO {
         MongoCollection<Document> coleccion = db.getCollection("co_aula_academia");
 
         Document documento = Document.parse(entrada.toString());
-        coleccion.replaceOne(new Document("_id", entrada.getInt("_id")), documento);
+        //find()
+        coleccion.updateOne(new Document("_id", entrada.getInt("_id")), new Document("$set", documento), UpdateOptions.class.newInstance().upsert(true));
 
         return new JSONObject()
                 .put("status", true)

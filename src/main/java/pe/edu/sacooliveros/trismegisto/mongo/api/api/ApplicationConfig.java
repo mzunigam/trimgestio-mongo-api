@@ -18,6 +18,7 @@ public class ApplicationConfig extends Application {
         singletons.add(corsFilter);
 
         classes.add(AcademiaApi.class);
+        classes.add(GoogleApi.class);
     }
 
     @Override
