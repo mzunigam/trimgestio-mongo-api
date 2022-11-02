@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 
+
 @javax.ws.rs.ApplicationPath("/api/v1")
 public class ApplicationConfig extends Application {
 
@@ -18,7 +19,8 @@ public class ApplicationConfig extends Application {
         singletons.add(corsFilter);
 
         classes.add(AcademiaApi.class);
-        classes.add(GoogleApi.class);
+        classes.add(GmailApi.class);
+
     }
 
     @Override

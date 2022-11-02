@@ -19,6 +19,6 @@ public abstract class FactoryDAO extends DAO {
     }
 
     public abstract AcademiaDAO getAcademiaDAO();
-    public abstract GoogleDAO getGoogleDAO();
+
 
 }
