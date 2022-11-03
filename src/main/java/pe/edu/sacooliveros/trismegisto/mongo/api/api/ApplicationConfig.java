@@ -19,7 +19,7 @@ public class ApplicationConfig extends Application {
         singletons.add(corsFilter);
 
         classes.add(AcademiaApi.class);
-        classes.add(GmailApi.class);
+        classes.add(GoogleApi.class);
 
     }
 

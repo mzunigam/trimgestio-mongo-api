@@ -6,23 +6,19 @@ import javax.ws.rs.core.Response;
 import org.json.JSONObject;
 
 import pe.edu.sacooliveros.trismegisto.mongo.api.google.GmailOperations;
-import pe.edu.sacooliveros.trismegisto.mongo.api.google.GmailService;
+import pe.edu.sacooliveros.trismegisto.mongo.api.google.GoogleToken;
 
 @Path("google")
 @Produces("application/json")
 @Consumes("application/json")
-public class GmailApi {
+public class GoogleApi {
 
     @GET
     @Path("email")
     @Produces("text/plain")
     public String getEmail() {
-        try {
-            GmailService.getGmailService();
-            return GmailService.getMailBody("prueba2");
-        } catch (Exception ex) {
-            return ex.getMessage();
-        }
+
+            return "";
     }
 
     @POST
@@ -50,6 +46,22 @@ public class GmailApi {
             entrada.put("respuesta", respuesta);
 
             return Response.status(200).entity(entrada.toString()).build();
+        } catch (Exception ex) {
+            return Response.status(500).entity(ex.getMessage()).build();
+        }
+    }
+
+
+    @GET
+    @Path ("token/token")
+    public Response getToken(String json) {
+        try {
+            JSONObject entrada = new JSONObject(json);
+            String token = GoogleToken.getAccessToken(entrada.getString("refresh_token"));
+            entrada.put("token",token);
+            
+            return Response.status(200).entity(entrada.toString()).build();
+            
         } catch (Exception ex) {
             return Response.status(500).entity(ex.getMessage()).build();
         }

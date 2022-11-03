@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch DriveOperations",
+            "request": "launch",
+            "mainClass": "pe.edu.sacooliveros.trismegisto.mongo.api.google.DriveOperations",
+            "projectName": "trismegisto-mongo-api"
+        },
+        {
+            "type": "java",
+            "name": "Launch DriveQuickStart",
+            "request": "launch",
+            "mainClass": "pe.edu.sacooliveros.trismegisto.mongo.api.google.DriveQuickStart",
+            "projectName": "trismegisto-mongo-api"
+        },
+        {
+            "type": "java",
             "name": "Launch GmailOperations",
             "request": "launch",
             "mainClass": "pe.edu.sacooliveros.trismegisto.mongo.api.google.GmailOperations",

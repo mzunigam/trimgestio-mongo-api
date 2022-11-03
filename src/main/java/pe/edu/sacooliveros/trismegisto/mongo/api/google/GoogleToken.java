@@ -24,55 +24,21 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
-import com.google.api.client.util.StringUtils;
+import com.google.api.services.drive.Drive;
 import com.google.api.services.gmail.Gmail;
-import com.google.api.services.gmail.model.ListMessagesResponse;
-import com.google.api.services.gmail.model.Message;
 
 
-public class GmailService {
+
+public class GoogleToken {
 
     private static final String APPLICATION_NAME = "Trismegisto";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private static final String user = "mzuniga.ti@sacooliveros.edu.pe";
-    static Gmail service = null;
+    static Gmail serviceGmail = null;
+	static Drive serviceDrive = null;
     private static File filePath = new File(System.getProperty("user.home") + "/credentials.json");
-    // public static void main(String[] args) {
-
-    //     try {
-    //         getGmailService();
-
-    //         getMailBody("prueba2");
-    //     } catch (Exception e) {
-    //         System.out.println(e.getMessage());
-    //     }
-
-
-    // }
-
-    public static String getMailBody(String searchString) throws IOException {
-
-		Gmail.Users.Messages.List request = service.users().messages().list(user).setQ(searchString);
-
-		ListMessagesResponse messagesResponse = request.execute();
-		request.setPageToken(messagesResponse.getNextPageToken());
-
-		String messageId = messagesResponse.getMessages().get(0).getId();
-
-		Message message = service.users().messages().get(user, messageId).execute();
-
-		String emailBody = StringUtils.newStringUtf8(Base64.decodeBase64(message.getPayload().getParts().get(0).getBody().getData()));
-        
-        String emailSubject = message.getPayload().getHeaders().get(19).getValue();
-
-        System.out.println(emailSubject+" : "+emailBody);
-
-        return emailSubject+" "+emailBody;
-
-	}
 
 	public static Gmail getGmailService() throws IOException, GeneralSecurityException {
+		String refresh_token = "1//0fRpVW_NCsC9vCgYIARAAGA8SNwF-L9IrrynrPfXv9AuRKUY3biR6rvzQGYKDuglh07ugNQZ4I8JP4j93YwxqAz8Ir0rOPhXa524";
 
         InputStream in = new FileInputStream(filePath);
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
@@ -82,25 +48,47 @@ public class GmailService {
 				.setClientSecrets(clientSecrets.getDetails().getClientId().toString(),
 						clientSecrets.getDetails().getClientSecret().toString())
 				.build()
-                .setAccessToken(getAccessToken())
-                .setRefreshToken("1//0fRpVW_NCsC9vCgYIARAAGA8SNwF-L9IrrynrPfXv9AuRKUY3biR6rvzQGYKDuglh07ugNQZ4I8JP4j93YwxqAz8Ir0rOPhXa524");
+                .setAccessToken(getAccessToken(refresh_token))
+                .setRefreshToken(refresh_token);
 
                 final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-                service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, authorize)
-                        .setApplicationName(GmailService.APPLICATION_NAME).build();
+                serviceGmail = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, authorize)
+                        .setApplicationName(GoogleToken.APPLICATION_NAME).build();
         
-                return service;
-                        
+                return serviceGmail;              
     }
 
-	private static String getAccessToken() {
+	public static Drive getDriveService() throws IOException, GeneralSecurityException {
+
+		String refresh_token = "1//0fapdbu9L9BT1CgYIARAAGA8SNwF-L9IrPrzWwbGVdZgWMNoGoex1wTGAlkACuEonlob8AMo98xreNVuKLKrh4I9OVN3FNT7H87w";
+
+        InputStream in = new FileInputStream(filePath);
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+
+		Credential authorize = new GoogleCredential.Builder().setTransport(GoogleNetHttpTransport.newTrustedTransport())
+				.setJsonFactory(JSON_FACTORY)
+				.setClientSecrets(clientSecrets.getDetails().getClientId().toString(),
+						clientSecrets.getDetails().getClientSecret().toString())
+				.build()
+                .setAccessToken(getAccessToken(refresh_token))
+                .setRefreshToken(refresh_token);
+
+                final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+                serviceDrive = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, authorize)
+                        .setApplicationName(GoogleToken.APPLICATION_NAME).build();
+        
+                return serviceDrive;              
+    }
+	
+
+	public static String getAccessToken(String refresh_token) {
 
 		try {
 			Map<String, Object> params = new LinkedHashMap<>();
 			params.put("grant_type", "refresh_token");
 			params.put("client_id", "475621380483-rijfi66cgrjsc4a4fqd239lstulpvlkt.apps.googleusercontent.com"); 
 			params.put("client_secret", "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"); 
-			params.put("refresh_token","1//0fRpVW_NCsC9vCgYIARAAGA8SNwF-L9IrrynrPfXv9AuRKUY3biR6rvzQGYKDuglh07ugNQZ4I8JP4j93YwxqAz8Ir0rOPhXa524"); 
+			params.put("refresh_token",refresh_token); 
 
 			StringBuilder postData = new StringBuilder();
 			for (Map.Entry<String, Object> param : params.entrySet()) {
@@ -133,9 +121,6 @@ public class GmailService {
 			ex.printStackTrace();
 		}
 		return null;
-	}
-
-	public class getGmailService {
 	}
 
 }

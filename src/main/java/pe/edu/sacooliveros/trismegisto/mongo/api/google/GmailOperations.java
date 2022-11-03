@@ -15,14 +15,40 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-
+import com.google.api.client.repackaged.org.apache.commons.codec.binary.StringUtils;
 import com.google.api.client.util.Base64;
 import com.google.api.services.gmail.Gmail;
+import com.google.api.services.gmail.model.ListMessagesResponse;
 import com.google.api.services.gmail.model.Message;
 
 
 
 public class GmailOperations {
+
+    private static final String user = "mzuniga.ti@sacooliveros.edu.pe";
+
+    public static String getMailBody(String searchString) throws IOException, GeneralSecurityException {
+
+        Gmail service = GoogleToken.getGmailService();
+
+		Gmail.Users.Messages.List request = service.users().messages().list(user).setQ(searchString);
+
+		ListMessagesResponse messagesResponse = request.execute();
+		request.setPageToken(messagesResponse.getNextPageToken());
+
+		String messageId = messagesResponse.getMessages().get(0).getId();
+
+		Message message = service.users().messages().get(user, messageId).execute();
+
+		String emailBody = StringUtils.newStringUtf8(Base64.decodeBase64(message.getPayload().getParts().get(0).getBody().getData()));
+        
+        String emailSubject = message.getPayload().getHeaders().get(19).getValue();
+
+        System.out.println(emailSubject+" : "+emailBody);
+
+        return emailSubject+" "+emailBody;
+
+	}
 
     public static void sendMessage(Gmail service, String userId, MimeMessage email)
             throws MessagingException, IOException {
@@ -62,7 +88,7 @@ public class GmailOperations {
         
         try {
             
-            Gmail service = GmailService.getGmailService();
+            Gmail service = GoogleToken.getGmailService();
 
            MimeMessage mimeMessage = createEmail(to, from, subject, bodyText);
            Message message =  createMessageWithEmail(mimeMessage);
@@ -129,7 +155,7 @@ public class GmailOperations {
 		// String htmlText = "<html>"+ body +"</html>";
 	
 		
-		Gmail service = GmailService.getGmailService();
+		Gmail service = GoogleToken.getGmailService();
 		MimeMessage Mimemessage = createHTMLEmailBodyWithAttachment(to,subject,htmlText);
 	
 		Message message = createMessageWithEmail(Mimemessage);
