@@ -1,6 +1,5 @@
 package pe.edu.sacooliveros.trismegisto.mongo.api.api;
 
-
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -28,9 +27,15 @@ public class AcademiaApi {
         try {
             JSONObject entrada = new JSONObject(json);
 
-            salida = new AcademiaService().aulaCrear(entrada);
-
-            return Response.status(200).entity(salida.toString()).build();
+            if (entrada.isNull("aula_academia_id")||entrada.isNull("aula_academia_nombre")) {
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            } else {
+                AcademiaService service = new AcademiaService();
+                salida = service.aulaCrear(new JSONObject()
+                        .put("aula_academia_id", entrada.getString("aula_academia_id"))
+                        .put("aula_academia_nombre", entrada.getString("aula_academia_nombre")));
+                return Response.status(200).entity(salida.toString()).build();
+            }
         } catch (Exception ex) {
             salida
                     .put("status", false)
@@ -68,9 +73,15 @@ public class AcademiaApi {
         try {
             JSONObject entrada = new JSONObject(json);
 
-            salida = new AcademiaService().aulaActualizar(entrada);
-
-            return Response.status(200).entity(salida.toString()).build();
+            if (entrada.isNull("aula_academia_id")||entrada.isNull("aula_academia_nombre")) {
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            } else {
+                AcademiaService service = new AcademiaService();
+                salida = service.aulaActualizar(new JSONObject()
+                        .put("aula_academia_id", entrada.getString("aula_academia_id"))
+                        .put("aula_academia_nombre", entrada.getString("aula_academia_nombre")));
+                return Response.status(200).entity(salida.toString()).build();
+            }
         } catch (Exception ex) {
             salida
                     .put("status", false)
@@ -101,6 +112,5 @@ public class AcademiaApi {
             throw new WebApplicationException(Response.status(500).entity(salida.toString()).build());
         }
     }
-
 
 }

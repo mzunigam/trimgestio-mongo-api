@@ -76,11 +76,11 @@
             <version>5.2.2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>3.12.10</version>
-        </dependency>
+    <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongodb-driver</artifactId>
+        <version>3.12.10</version>
+    </dependency>
         <!-- https://mvnrepository.com/artifact/com.google.gdata/core -->
         <dependency>
             <groupId>com.google.gdata</groupId>

@@ -12,6 +12,13 @@ import com.google.api.client.http.FileContent;
 
 public class DriveOperations {
 
+    public static File getSpecificFile( String fileId) throws IOException, GeneralSecurityException {
+
+        File file = GoogleToken.getDriveService().files().get(fileId).execute();
+        return file;
+            
+    }
+
     public static List<File> getFiles() throws IOException, GeneralSecurityException {
         Drive service = GoogleToken.getDriveService();
         FileList result = service.files().list()
@@ -39,8 +46,5 @@ public class DriveOperations {
         return file.getId();
     }
 
-    public static void main(String[] args) throws IOException, GeneralSecurityException {
-    uploadFile();
 
-    }
 }

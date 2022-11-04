@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch MongoDBConexion",
+            "request": "launch",
+            "mainClass": "pe.edu.sacooliveros.trismegisto.mongo.api.mongodbdao.MongoDBConexion",
+            "projectName": "trismegisto-mongo-api"
+        },
+        {
+            "type": "java",
             "name": "Launch DriveOperations",
             "request": "launch",
             "mainClass": "pe.edu.sacooliveros.trismegisto.mongo.api.google.DriveOperations",

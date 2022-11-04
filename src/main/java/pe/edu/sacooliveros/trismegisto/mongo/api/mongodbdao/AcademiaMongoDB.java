@@ -14,7 +14,7 @@ public class AcademiaMongoDB implements AcademiaDAO {
     @Override
     public JSONObject aulaCrear(JSONObject entrada) throws Exception {
         MongoDBConexion conexion = new MongoDBConexion();
-        MongoDatabase db = conexion.crearConexion().getDatabase("prueba");
+        MongoDatabase db = conexion.crearConexion().getDatabase("trismegisto");
         MongoCollection<Document> coleccion = db.getCollection("co_aula_academia");
 
         entrada.put("_id", coleccion.countDocuments() + 1);
@@ -32,7 +32,7 @@ public class AcademiaMongoDB implements AcademiaDAO {
     public JSONObject aulaListar() throws Exception {
         MongoDBConexion conexion = new MongoDBConexion();
 
-        MongoDatabase db = conexion.crearConexion().getDatabase("prueba");
+        MongoDatabase db = conexion.crearConexion().getDatabase("trismegisto");
         
         MongoCollection<Document> coleccion = db.getCollection("co_aula_academia");
         Iterable<Document> documentos = coleccion.find();
@@ -51,7 +51,7 @@ public class AcademiaMongoDB implements AcademiaDAO {
     @Override
     public JSONObject aulaActualizar(JSONObject entrada) throws Exception {
         MongoDBConexion conexion = new MongoDBConexion();
-        MongoDatabase db = conexion.crearConexion().getDatabase("prueba");
+        MongoDatabase db = conexion.crearConexion().getDatabase("trismegisto");
         MongoCollection<Document> coleccion = db.getCollection("co_aula_academia");
 
         Document documento = Document.parse(entrada.toString());
@@ -70,7 +70,7 @@ public class AcademiaMongoDB implements AcademiaDAO {
         System.out.println(entrada.toString());
 
         MongoDBConexion conexion = new MongoDBConexion();
-        MongoDatabase db = conexion.crearConexion().getDatabase("prueba");
+        MongoDatabase db = conexion.crearConexion().getDatabase("trismegisto");
         MongoCollection<Document> coleccion = db.getCollection("co_aula_academia");
 
         coleccion.deleteOne(new Document("_id", entrada.getInt("_id")));
