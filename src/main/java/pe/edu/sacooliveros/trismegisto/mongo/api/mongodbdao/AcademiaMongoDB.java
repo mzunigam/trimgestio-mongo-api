@@ -16,7 +16,13 @@ public class AcademiaMongoDB implements AcademiaDAO {
         MongoDBConexion conexion = new MongoDBConexion();
         MongoDatabase db = conexion.crearConexion().getDatabase("trismegisto");
         MongoCollection<Document> coleccion = db.getCollection("co_aula_academia");
-        entrada.put("aula_academia_id", coleccion.countDocuments() + 1);
+
+        if(coleccion.find(new Document("aula_academia_id", entrada.getInt("aula_academia_id"))).first() != null){
+
+            throw new Exception("aula_academia_id "+entrada.getInt("aula_academia_id")+" already exists");
+
+        }else{
+
         Document documento = Document.parse(entrada.toString());
         coleccion.insertOne(documento);
 
@@ -24,6 +30,8 @@ public class AcademiaMongoDB implements AcademiaDAO {
                 .put("status", true)
                 .put("message", "Creado correctamente")
                 .put("data", entrada);
+
+        }
     }
 
     @Override
@@ -40,7 +48,7 @@ public class AcademiaMongoDB implements AcademiaDAO {
 
         return new JSONObject()
                 .put("status", true)
-                .put("message", "Actualizado correctamente")
+                .put("message", "Cantidad de registros: " + lista.length())
                 .put("data", lista);
     }
 

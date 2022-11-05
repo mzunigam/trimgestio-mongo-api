@@ -20,12 +20,14 @@ public class AcademiaApi {
         try {
             JSONObject entrada = new JSONObject(json);
 
-            if (entrada.isNull("aula_academia_nombre")) {
-                throw new WebApplicationException(Response.Status.BAD_REQUEST+" | aula_academia_nombre is required ");
-            } else {
+            if (entrada.isNull("aula_academia_id")||entrada.isNull("aula_academia_nombre")) {
+                throw new WebApplicationException(Response.Status.BAD_REQUEST+ " | aula_academia_id and aula_academia_nombre are required ");
+            }  else {
                 AcademiaService service = new AcademiaService();
                 salida = service.aulaCrear(new JSONObject()
+                        .put("aula_academia_id", entrada.getInt("aula_academia_id"))
                         .put("aula_academia_nombre", entrada.getString("aula_academia_nombre")));
+
                 return Response.status(200).entity(salida.toString()).build();
             }
         } catch (Exception ex) {
