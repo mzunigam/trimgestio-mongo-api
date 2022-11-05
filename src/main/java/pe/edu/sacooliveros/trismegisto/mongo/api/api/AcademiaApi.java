@@ -27,12 +27,11 @@ public class AcademiaApi {
         try {
             JSONObject entrada = new JSONObject(json);
 
-            if (entrada.isNull("aula_academia_id")||entrada.isNull("aula_academia_nombre")) {
-                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            if (entrada.isNull("aula_academia_nombre")) {
+                throw new WebApplicationException(Response.Status.BAD_REQUEST+" | aula_academia_nombre is required ");
             } else {
                 AcademiaService service = new AcademiaService();
                 salida = service.aulaCrear(new JSONObject()
-                        .put("aula_academia_id", entrada.getString("aula_academia_id"))
                         .put("aula_academia_nombre", entrada.getString("aula_academia_nombre")));
                 return Response.status(200).entity(salida.toString()).build();
             }
@@ -74,11 +73,11 @@ public class AcademiaApi {
             JSONObject entrada = new JSONObject(json);
 
             if (entrada.isNull("aula_academia_id")||entrada.isNull("aula_academia_nombre")) {
-                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+                throw new WebApplicationException(Response.Status.BAD_REQUEST+ " | aula_academia_id and aula_academia_nombre are required ");
             } else {
                 AcademiaService service = new AcademiaService();
                 salida = service.aulaActualizar(new JSONObject()
-                        .put("aula_academia_id", entrada.getString("aula_academia_id"))
+                        .put("aula_academia_id", entrada.getInt("aula_academia_id"))
                         .put("aula_academia_nombre", entrada.getString("aula_academia_nombre")));
                 return Response.status(200).entity(salida.toString()).build();
             }
@@ -100,9 +99,15 @@ public class AcademiaApi {
         try {
             JSONObject entrada = new JSONObject(json);
 
-            salida = new AcademiaService().aulaEliminar(entrada);
+            if (entrada.isNull("aula_academia_id")) {
+                throw new WebApplicationException(Response.Status.BAD_REQUEST+ " | aula_academia_id is required ");
+            } else {
+                AcademiaService service = new AcademiaService();
+                salida = service.aulaEliminar(new JSONObject()
+                        .put("aula_academia_id", entrada.getInt("aula_academia_id")));
+                return Response.status(200).entity(salida.toString()).build();
+            }
 
-            return Response.status(200).entity(salida.toString()).build();
         } catch (Exception ex) {
             salida
                     .put("status", false)

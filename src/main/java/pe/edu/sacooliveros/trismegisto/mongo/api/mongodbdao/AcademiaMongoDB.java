@@ -16,35 +16,31 @@ public class AcademiaMongoDB implements AcademiaDAO {
         MongoDBConexion conexion = new MongoDBConexion();
         MongoDatabase db = conexion.crearConexion().getDatabase("trismegisto");
         MongoCollection<Document> coleccion = db.getCollection("co_aula_academia");
-
-        entrada.put("_id", coleccion.countDocuments() + 1);
-
+        entrada.put("aula_academia_id", coleccion.countDocuments() + 1);
         Document documento = Document.parse(entrada.toString());
         coleccion.insertOne(documento);
 
         return new JSONObject()
                 .put("status", true)
-                .put("message", "Éxito")
+                .put("message", "Creado correctamente")
                 .put("data", entrada);
     }
 
     @Override
     public JSONObject aulaListar() throws Exception {
         MongoDBConexion conexion = new MongoDBConexion();
-
         MongoDatabase db = conexion.crearConexion().getDatabase("trismegisto");
-        
         MongoCollection<Document> coleccion = db.getCollection("co_aula_academia");
         Iterable<Document> documentos = coleccion.find();
         JSONArray lista = new JSONArray();
-        
+
         for (Document documento : documentos) {
             lista.put(new JSONObject(documento.toJson()));
         }
 
         return new JSONObject()
                 .put("status", true)
-                .put("message", "Éxito")
+                .put("message", "Actualizado correctamente")
                 .put("data", lista);
     }
 
@@ -53,35 +49,38 @@ public class AcademiaMongoDB implements AcademiaDAO {
         MongoDBConexion conexion = new MongoDBConexion();
         MongoDatabase db = conexion.crearConexion().getDatabase("trismegisto");
         MongoCollection<Document> coleccion = db.getCollection("co_aula_academia");
-
         Document documento = Document.parse(entrada.toString());
-        //find()
-        coleccion.updateOne(new Document("_id", entrada.getInt("_id")), new Document("$set", documento), UpdateOptions.class.newInstance().upsert(true));
 
-        return new JSONObject()
-                .put("status", true)
-                .put("message", "Éxito")
-                .put("data", entrada);
+        if (coleccion.find(new Document("aula_academia_id", entrada.getInt("aula_academia_id"))).first() == null) {
+            return aulaCrear(new JSONObject().put("aula_academia_nombre", entrada.getString("aula_academia_nombre")));
+        }
+        else {
+            return new JSONObject()
+                    .put("status", true)
+                    .put("message", "Actualizado correctamente")
+                    .put("data", entrada);
+        }
     }
 
     @Override
     public JSONObject aulaEliminar(JSONObject entrada) throws Exception {
 
-        System.out.println(entrada.toString());
-
         MongoDBConexion conexion = new MongoDBConexion();
         MongoDatabase db = conexion.crearConexion().getDatabase("trismegisto");
         MongoCollection<Document> coleccion = db.getCollection("co_aula_academia");
 
-        coleccion.deleteOne(new Document("_id", entrada.getInt("_id")));
-        System.out.println(new Document("_id", entrada.getInt("_id")).toJson());
+        if (coleccion.findOneAndDelete(new Document("aula_academia_id", entrada.getInt("aula_academia_id"))) == null) {
+            return new JSONObject()
+                    .put("status", false)
+                    .put("message", "No Document Found with ID: " + entrada.getInt("aula_academia_id"))
+                    .put("data", entrada);
+        }
 
         return new JSONObject()
                 .put("status", true)
-                .put("message", "Éxito")
+                .put("message", "Elimado correctamente")
                 .put("data", entrada);
     }
 
-    
 
 }
