@@ -52,9 +52,15 @@ public class AcademiaMongoDB implements AcademiaDAO {
         Document documento = Document.parse(entrada.toString());
 
         if (coleccion.find(new Document("aula_academia_id", entrada.getInt("aula_academia_id"))).first() == null) {
-            return aulaCrear(new JSONObject().put("aula_academia_nombre", entrada.getString("aula_academia_nombre")));
+            return new JSONObject()
+                    .put("status", false)
+                    .put("message", "No document found with ID: " + entrada.getInt("aula_academia_id"))
+                    .put("data", entrada);
         }
         else {
+
+            coleccion.updateOne(new Document("aula_academia_id", entrada.getInt("aula_academia_id")), new Document("$set", documento));
+
             return new JSONObject()
                     .put("status", true)
                     .put("message", "Actualizado correctamente")
@@ -72,7 +78,7 @@ public class AcademiaMongoDB implements AcademiaDAO {
         if (coleccion.findOneAndDelete(new Document("aula_academia_id", entrada.getInt("aula_academia_id"))) == null) {
             return new JSONObject()
                     .put("status", false)
-                    .put("message", "No Document Found with ID: " + entrada.getInt("aula_academia_id"))
+                    .put("message", "No document found with ID: " + entrada.getInt("aula_academia_id"))
                     .put("data", entrada);
         }
 

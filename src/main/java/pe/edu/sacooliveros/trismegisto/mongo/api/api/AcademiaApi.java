@@ -1,13 +1,6 @@
 package pe.edu.sacooliveros.trismegisto.mongo.api.api;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import org.json.JSONObject;
 
@@ -92,19 +85,18 @@ public class AcademiaApi {
     }
 
     @DELETE
-    @Path("aula")
-    public Response aulaEliminar(String json) {
+    @Path("aula/{aula_academia_id}")
+    public Response aulaEliminar(@PathParam("aula_academia_id") Integer aula_academia_id) {
         JSONObject salida = new JSONObject();
 
         try {
-            JSONObject entrada = new JSONObject(json);
 
-            if (entrada.isNull("aula_academia_id")) {
-                throw new WebApplicationException(Response.Status.BAD_REQUEST+ " | aula_academia_id is required ");
+            if (aula_academia_id == 0) {
+                throw new WebApplicationException(Response.Status.BAD_REQUEST+ " | aula_academia_id is required " + aula_academia_id);
             } else {
                 AcademiaService service = new AcademiaService();
                 salida = service.aulaEliminar(new JSONObject()
-                        .put("aula_academia_id", entrada.getInt("aula_academia_id")));
+                        .put("aula_academia_id", aula_academia_id));
                 return Response.status(200).entity(salida.toString()).build();
             }
 

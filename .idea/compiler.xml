@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="trimgestio-mongo-api" />
+        <module name="trismegisto-mongo-api" />
       </profile>
     </annotationProcessing>
   </component>
