@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
+import pe.edu.sacooliveros.trismegisto.mongo.api.mongodbdao.MongoDBConexion;
 
 
 @javax.ws.rs.ApplicationPath("/api/v1")
@@ -20,6 +21,7 @@ public class ApplicationConfig extends Application {
 
         classes.add(AcademiaApi.class);
         classes.add(GoogleApi.class);
+        classes.add(MongoDBConexion.class);
 
     }
 
