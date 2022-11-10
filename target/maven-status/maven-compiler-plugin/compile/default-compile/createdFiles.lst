@@ -5,9 +5,13 @@ pe\edu\sacooliveros\trismegisto\mongo\api\google\GoogleToken.class
 pe\edu\sacooliveros\trismegisto\mongo\api\dao\FactoryDAO.class
 pe\edu\sacooliveros\trismegisto\mongo\api\api\ApplicationConfig.class
 pe\edu\sacooliveros\trismegisto\mongo\api\service\AcademiaService.class
+pe\edu\sacooliveros\trismegisto\mongo\api\api\MatriculaApi.class
+pe\edu\sacooliveros\trismegisto\mongo\api\dao\MatriculaMongoDAO.class
 pe\edu\sacooliveros\trismegisto\mongo\api\google\GmailOperations.class
+pe\edu\sacooliveros\trismegisto\mongo\api\mongodbdao\MatriculaMongoDB.class
 pe\edu\sacooliveros\trismegisto\mongo\api\api\AcademiaApi.class
 pe\edu\sacooliveros\trismegisto\mongo\api\dao\AcademiaDAO.class
 pe\edu\sacooliveros\trismegisto\mongo\api\google\DriveOperations.class
+pe\edu\sacooliveros\trismegisto\mongo\api\service\MatriculaService.class
 pe\edu\sacooliveros\trismegisto\mongo\api\api\GoogleApi.class
 pe\edu\sacooliveros\trismegisto\mongo\api\mongodbdao\AcademiaMongoDB.class

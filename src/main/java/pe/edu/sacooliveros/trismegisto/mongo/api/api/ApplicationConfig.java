@@ -22,6 +22,7 @@ public class ApplicationConfig extends Application {
         classes.add(AcademiaApi.class);
         classes.add(GoogleApi.class);
         classes.add(MongoDBConexion.class);
+        classes.add(MatriculaApi.class);
 
     }
 
