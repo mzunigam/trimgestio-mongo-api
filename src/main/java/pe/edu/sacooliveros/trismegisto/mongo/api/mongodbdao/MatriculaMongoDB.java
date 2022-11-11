@@ -32,6 +32,7 @@ public class MatriculaMongoDB implements MatriculaMongoDAO {
 
     @Override
     public JSONObject matriculaMigrar(String json) throws Exception{
+
         MongoDBConexion conexion = new MongoDBConexion();
         MongoDatabase db = conexion.crearConexion().getDatabase("test");
         MongoCollection<Document> coleccion = db.getCollection("ma_informe");
@@ -40,7 +41,7 @@ public class MatriculaMongoDB implements MatriculaMongoDAO {
 
         return new JSONObject()
                 .put("status", true)
-                .put("message", "HOLA");
+                .put("message", new JSONObject(json));
     }
 
 }
