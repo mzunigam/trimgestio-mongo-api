@@ -1,5 +1,6 @@
 D:\trismegisto-mongo-api\src\main\java\pe\edu\sacooliveros\trismegisto\mongo\api\api\AcademiaApi.java
 D:\trismegisto-mongo-api\src\main\java\pe\edu\sacooliveros\trismegisto\mongo\api\api\ApplicationConfig.java
+D:\trismegisto-mongo-api\src\main\java\pe\edu\sacooliveros\trismegisto\mongo\api\filters\CorsFilter.java
 D:\trismegisto-mongo-api\src\main\java\pe\edu\sacooliveros\trismegisto\mongo\api\google\GoogleToken.java
 D:\trismegisto-mongo-api\src\main\java\pe\edu\sacooliveros\trismegisto\mongo\api\api\GoogleApi.java
 D:\trismegisto-mongo-api\src\main\java\pe\edu\sacooliveros\trismegisto\mongo\api\mongodbdao\MongoDBFactoryDAO.java

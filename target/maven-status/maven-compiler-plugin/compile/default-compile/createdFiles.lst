@@ -1,6 +1,7 @@
 pe\edu\sacooliveros\trismegisto\mongo\api\dao\DAO.class
 pe\edu\sacooliveros\trismegisto\mongo\api\mongodbdao\MongoDBFactoryDAO.class
 pe\edu\sacooliveros\trismegisto\mongo\api\mongodbdao\MongoDBConexion.class
+pe\edu\sacooliveros\trismegisto\mongo\api\filters\CorsFilter.class
 pe\edu\sacooliveros\trismegisto\mongo\api\google\GoogleToken.class
 pe\edu\sacooliveros\trismegisto\mongo\api\dao\FactoryDAO.class
 pe\edu\sacooliveros\trismegisto\mongo\api\api\ApplicationConfig.class

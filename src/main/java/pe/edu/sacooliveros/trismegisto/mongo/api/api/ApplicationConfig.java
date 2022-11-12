@@ -3,7 +3,8 @@ package pe.edu.sacooliveros.trismegisto.mongo.api.api;
 import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.core.Application;
-import org.jboss.resteasy.plugins.interceptors.CorsFilter;
+
+import pe.edu.sacooliveros.trismegisto.mongo.api.filters.CorsFilter;
 import pe.edu.sacooliveros.trismegisto.mongo.api.mongodbdao.MongoDBConexion;
 
 
@@ -14,16 +15,13 @@ public class ApplicationConfig extends Application {
     private final HashSet<Class<?>> classes = new HashSet<>();
 
     public ApplicationConfig() {
-        CorsFilter corsFilter = new CorsFilter();
-        corsFilter.getAllowedOrigins().add("*");
-        corsFilter.setAllowedMethods("OPTIONS, GET, POST, DELETE, PUT, PATCH");
-        singletons.add(corsFilter);
+
+        singletons.add(new CorsFilter());
 
         classes.add(AcademiaApi.class);
         classes.add(GoogleApi.class);
         classes.add(MongoDBConexion.class);
         classes.add(MatriculaApi.class);
-
     }
 
     @Override
